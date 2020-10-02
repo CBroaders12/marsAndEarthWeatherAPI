@@ -21,20 +21,40 @@
 		<div class="container-fluid">
 			<form>
 				<label for="latitude">Latitude:</label>
-				<input type="text" class="search" id="latitude" placeholder="Enter latitude" required />
-
+				<input type="range" min="-180" max="180" class="slider" id="latitude" value="0" />
+				<br />
 				<label for="longitude">Longitude:</label>
-				<input type="text" class="search" id="longitude" placeholder="Enter longitude" required />
-
+				<input type="range" min="-180" max="180" class="slider" id="longitude" value="0" required />
+				<br />
 				<button type="submit">Submit Location</button>
 			</form>
 		</div>
-		<div class="container-fluid d-flex" id="mars-weather">
-			<!-- Mars Weather cards here -->
+		<div class="container-fluid">
+			<h2>Yesterday's Weather</h2>
+			<div class="container-fluid d-flex justify-content-around" id="weather-cards">
+				<!-- Weather cards here -->
+			</div>
 		</div>
 
-		<div class="container-fluid d-flex" id="earth-weather">
-			<!-- Earth cards here -->
+		<!-- <div class="container-fluid">
+			<h2>Weather on Earth</h2>
+			<div class="container-fluid d-flex" id="earth-weather">
+				 Earth cards here
+			</div>
+		</div> -->
+
+		<div class="container-fluid">
+			<h2>Template</h2>
+			<div class="container d-flex" id="test-container">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Date/Sol #</h5>
+						<h6 class="average-temp card-subtitle">{Avg. Temp} &#176;F</h6>
+						<p class="card-text"><span class="min-temp">Low:</span> {Min. Temp} &#176;F</p>
+						<p class="card-text"><span class="max-temp">High:</span> {Max. Temp} &#176;F</p>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<!--~ BOOTSTRAP JS -->
