@@ -20,6 +20,16 @@ let latSlider = document.getElementById("latitude");
 // let earthDiv = document.getElementById("earth-weather");
 let weatherDiv = document.getElementById("weather-cards");
 
+// Slider should display current coordinates
+let latOutput = document.getElementById("lat-output");
+let longOutput = document.getElementById("long-output");
+
+latOutput.innerHTML = latSlider.value;
+longOutput.innerHTML = longSlider.value;
+
+latSlider.oninput = () => (latOutput.innerHTML = latSlider.value);
+longSlider.oninput = () => (longOutput.innerHTML = longSlider.value);
+
 // Fetch Data
 searchForm.addEventListener("submit", fetchWeather);
 
@@ -55,7 +65,7 @@ function fetchWeather(e) {
 }
 
 function displayEarthInfo(json) {
-	// console.log(json);
+	console.log(json);
 	let hourlyData = json.hourly;
 	let timeStamp = new Date(json.current.dt * 1000);
 	let day = timeStamp.getDay();
