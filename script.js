@@ -68,7 +68,7 @@ function displayEarthInfo(json) {
 		earthDiv.removeChild(earthDiv.firstChild);
 	}
 
-	console.log(json);
+	// console.log(json);
 
 	let hourlyData = json.hourly;
 	let timeStamp = new Date(json.current.dt * 1000);
@@ -78,7 +78,7 @@ function displayEarthInfo(json) {
 	let timeZone = json.timezone;
 
 	let dateString = `${dayNames[day]}, ${monthNames[month]} ${date}`;
-	let location = `${latSlider.value}\u00b0 N, ${longSlider.value}\u00b0 E`;
+	let location = `${latSlider.value}\u00b0, ${longSlider.value}\u00b0`;
 
 	//Calculate Avg, min, max temp
 	let temps = [];
@@ -108,6 +108,9 @@ function displayMarsInfo(json) {
 	while (marsDiv.firstChild) {
 		marsDiv.removeChild(marsDiv.firstChild);
 	}
+
+	// console.log(json);
+
 	let solKeys = json.sol_keys;
 	let lastSol = solKeys[solKeys.length - 1];
 	let solData = json[lastSol];
@@ -126,7 +129,7 @@ function displayMarsInfo(json) {
 
 	// TODO: Pull pressure info
 
-	let marsCard = buildCard("Elysium Planitia", "Insight Lander", dateString, avgTemp, minTemp, maxTemp);
+	let marsCard = buildCard("4.5\u00b0 135.6\u00b0", "Elysium Planitia", dateString, avgTemp, minTemp, maxTemp);
 
 	marsDiv.appendChild(marsCard);
 }
