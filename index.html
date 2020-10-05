@@ -17,36 +17,92 @@
 
 		<title>Weather on Earth/Mars</title>
 	</head>
+
 	<body>
-		<div class="container-fluid">
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4 text-light">Mars vs. Earth Weather</h1>
+				<p class="lead text-light">
+					Take a look at the weather on Mars and see how it compares to weather here on Earth.
+				</p>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-5">
+			<h2>Choose a location on Earth</h2>
 			<form>
 				<div class="row">
 					<div class="col">
-						<label for="latitude">Latitude: <span id="lat-output"></span></label>
+						<label for="latitude">
+							<span class="font-weight-bold nasa">Latitude:</span> <span id="lat-output"></span
+						></label>
 						<input type="range" min="-90" max="90" step="0.1" class="slider" id="latitude" value="0" />
 					</div>
 					<div class="col">
-						<label for="longitude">Longitude: <span id="long-output"></span></label>
+						<label for="longitude">
+							<span class="font-weight-bold nasa">Longitude:</span> <span id="long-output"></span
+						></label>
 						<input type="range" min="-180" max="180" step="0.1" class="slider" id="longitude" value="0" required />
 					</div>
 				</div>
-				<button class="btn btn-primary" type="submit">Submit Location</button>
+				<button class="btn btn-primary d-block mx-auto my-3" type="submit">Submit Location</button>
 			</form>
+			<div class="container-sm">
+				<h3>Some places to try</h3>
+				<table class="table table-sm table-striped table-light">
+					<thead class="thead-dark nasa">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">City</th>
+							<th scope="col">Latitude</th>
+							<th scope="col">Longitude</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Indianapolis</td>
+							<td>39.8</td>
+							<td>-86.2</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>Chicago</td>
+							<td>41.9</td>
+							<td>-87.6</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>New York City</td>
+							<td>40.7</td>
+							<td>-74.0</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
-		<div class="container-fluid">
+
+		<div class="container-fluid mb-5">
 			<h2>Yesterday's Weather</h2>
-			<div class="container-fluid d-flex justify-content-around" id="weather-cards">
-				<!-- Weather cards here -->
+			<div class="container-fluid" id="weather-cards">
+				<div class="row">
+					<div class="col" id="mars-weather">
+						<div class="card">
+							<img src="./assets/images/mars.png" alt="Mars" width="100%" class="mx-auto" />
+						</div>
+						<!-- Mars weather goes here -->
+					</div>
+					<div class="col" id="earth-weather">
+						<div class="card">
+							<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
+						</div>
+						<!-- Earth weather goes here -->
+					</div>
+				</div>
 			</div>
 		</div>
 
-		<!-- <div class="container-fluid">
-			<h2>Weather on Earth</h2>
-			<div class="container-fluid d-flex" id="earth-weather">
-				 Earth cards here
-			</div>
-		</div> -->
-
+		<!--~ CARD TEMPLATE  -->
 		<!-- <div class="container-fluid">
 			<h2>Template</h2>
 			<div class="container d-flex" id="test-container">
@@ -60,6 +116,66 @@
 				</div>
 			</div>
 		</div> -->
+
+		<div class="container-fluid" id="about">
+			<h2>About this page</h2>
+			<p>
+				This page was built with <a href="https://getbootstrap.com">Bootstrap</a> and interacts with two different APIs:
+				the
+				<a href="https://api.nasa.gov/assets/insight/InSight Weather API Documentation.pdf">NASA InSight Weather API</a>
+				and the <a href="https://openweathermap.org/api/one-call-api">OpenWeather One Call API</a>.
+			</p>
+			<p>
+				The purpose of the project was to learn how to integrate information from multiple sources into a single page
+				and also allow for users to choose the information that they would like to see displayed. In the case of this
+				page, users are able to choose a latitude and longitude on Earth with which to compare the weather found at
+				Elysium Planitia, the location of the InSight Lander.
+			</p>
+
+			<h6 class="font-weight-bold">A few notes:</h6>
+			<ol>
+				<li>
+					<span class="font-italic">Data availability:</span>
+					<p>
+						The data from the InSight lander includes temperature, air pressure, and wind speed, however, the pressure
+						and wind speed measurements are not always available. Because of this limitation the project only includes
+						temperature for the preceding sol/day.
+					</p>
+					<p>More information regarding the available data can be found at the API documentation.</p>
+				</li>
+				<li>
+					<span class="font-italic">Apples and Oranges Comparisons:</span>
+					<p>
+						Another reason for lack of pressure and wind data in this particular page is that the atmospheric pressure
+						on Mars is less than 1% of Earth's. This means any comparison of wind speed would not be very enlightening
+						as a 60 mph wind on Mars would feel like an 8 mph wind here on Earth.
+					</p>
+					<p>
+						For an explanation of the physics behind this look
+						<a href="https://space.stackexchange.com/questions/9301/could-you-feel-the-wind-on-mars">here</a>.
+					</p>
+				</li>
+				<li>
+					<span class="font-italic">Mars Calendar vs. Earth Calendar:</span>
+					<p>
+						For simplicity, the data pulled from Insight is the last sol's data point, which is then compared to
+						yesterday's weather at the chosen point on Earth. This may not be entirely accurate, because one Sol
+						(Martian Solar Day) is 39 minutes and 35 seconds longer than an Earth day. Additionally, the seasons on Mars
+						do not sync up with those one Earth so the comparisons are to satisfy curiosity rather than produce new
+						insights.
+					</p>
+					<p>
+						For more info on Mars' calendar look <a href="https://www.planetary.org/articles/mars-calendar">here</a>.
+					</p>
+				</li>
+			</ol>
+		</div>
+
+		<div class="container-fluid bg-dark text-light p-4">
+			<p>Copyright &copy; Conor Broaders 2020</p>
+			Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
+			<a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+		</div>
 
 		<!--~ BOOTSTRAP JS -->
 		<script

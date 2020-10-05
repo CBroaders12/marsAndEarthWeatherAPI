@@ -1,4 +1,22 @@
-/* The slider itself */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.nasa {
+	font-family: "Nasalization";
+	/* margin-bottom: 1.5rem; */
+}
+
+.jumbotron {
+	background: url(./assets/images/nasa-E7q00J_8N7A-unsplash.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 40vh;
+}
+
+/* Slider Stylings */
 .slider {
 	-webkit-appearance: none; /* Override default CSS styles */
 	appearance: none;
@@ -38,4 +56,19 @@
 
 #latitude::-webkit-slider-thumb {
 	background: #f56c49; /* Green background */
+}
+
+img {
+	max-width: 250px;
+}
+
+/* CUSTOM FONTS */
+@font-face {
+	font-family: "Nasalization";
+	src: url("./assets/fonts/nasalization/nasalization_rg.ttf");
+}
+
+@font-face {
+	font-family: "Bambi";
+	src: url("./assets/fonts/X_BAMBI.TTF");
 }
