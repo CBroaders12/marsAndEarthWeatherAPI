@@ -13,7 +13,6 @@ const dayNames = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 let secondsPerDay = 24 * 60 * 60; //for calculating Unix time
 let today = new Date(); // Current time
 let todaySeconds = Math.floor(today / 1000); // Unix time in seconds
-// let fiveDaysAgo = new Date(today - 4 * (secondsPerDay * 1000));
 
 // Declare variables for HTML Tags
 let searchForm = document.querySelector("form");
@@ -42,7 +41,7 @@ searchForm.addEventListener("submit", fetchWeather);
 function fetchWeather(e) {
 	e.preventDefault();
 
-	let unixTime = todaySeconds - secondsPerDay; // Get yesterdays time
+	let unixTime = todaySeconds - secondsPerDay; // Get yesterday's time
 
 	fetch(
 		`${weatherURL}?lat=${latSlider.value}&lon=${longSlider.value}&dt=${unixTime}&appid=${weatherApiKey}&units=${unitType}`
@@ -95,10 +94,6 @@ function displayEarthInfo(json) {
 	avgTemp /= hourlyData.length;
 	avgTemp = Math.round(avgTemp);
 
-	// TODO: Pull wind info
-
-	// TODO: Pull pressure info
-
 	let earthCard = buildCard(location, timeZone, dateString, avgTemp, minTemp, maxTemp);
 
 	earthDiv.appendChild(earthCard);
@@ -114,29 +109,39 @@ function displayMarsInfo(json) {
 	let solKeys = json.sol_keys;
 	let lastSol = solKeys[solKeys.length - 1];
 	let solData = json[lastSol];
-	// console.log(solData);
+	console.log(solData);
 
 	// Get Date
 	// let timeStamp = new Date(solData.Last_UTC); // Not used
 	let dateString = `Sol ${lastSol}`; // Show the Sol of the Insight mission instead of the Earth Date
 
-	// Get temperature readings
-	let avgTemp = Math.round(solData.AT.av);
-	let minTemp = Math.round(solData.AT.mn);
-	let maxTemp = Math.round(solData.AT.mx);
+	// Get temperature readings and convert to Fahrenheit
+	let avgTemp = Math.round(1.8 * solData.AT.av + 32);
+	let minTemp = Math.round(1.8 * solData.AT.mn + 32);
+	let maxTemp = Math.round(1.8 * solData.AT.mx + 32);
 
 	// TODO: Pull wind info
+	if (solData.HWS) {
+		let windSpeed = solData.HWS.av;
+		console.log(windSpeed);
+	}
+	if (solData.WD) {
+		let windDirection = solData.WD.most_common.compass_point;
+		console.log(windDirection);
+	}
 
 	// TODO: Pull pressure info
+	if (solData.PRE) {
+		let avgPressure = solData.PRE.av;
+		console.log(avgPressure);
+	}
 
-	let marsCard = buildCard("4.5\u00b0 135.6\u00b0", "Elysium Planitia", dateString, avgTemp, minTemp, maxTemp);
+	let marsCard = buildCard("4.5\u00b0, 135.6\u00b0", "Elysium Planitia", dateString, avgTemp, minTemp, maxTemp);
 
 	marsDiv.appendChild(marsCard);
 }
-// }
-// }
 
-function buildCard(location, locationExtra, date, avgTemp, minTemp, maxTemp) {
+function buildCard(location, locationExtra, date, avgTemp, minTemp, maxTemp, avgPress = "N/A", windSpeed = "N/A") {
 	let card = document.createElement("div");
 	let cardHeader = document.createElement("div");
 	let cardBody = document.createElement("div");
