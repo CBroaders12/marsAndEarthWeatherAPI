@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!--~ FAVICON -->
-		<link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
 
 		<!--~ BOOTSTRAP CSS -->
 		<link
@@ -42,7 +42,7 @@
 						<input type="range" min="-90" max="90" step="0.1" class="slider" id="latitude" value="4.5" />
 					</div>
 					<div class="col">
-						<labelF for="longitude">
+						<label for="longitude">
 							<span class="font-weight-bold nasa">Longitude:</span> <span id="long-output"></span>&deg;</label
 						>
 						<input type="range" min="-180" max="180" step="0.1" class="slider" id="longitude" value="135.6" required />
@@ -117,16 +117,16 @@
 
 		<div class="container-fluid mb-5">
 			<h2>Yesterday's Weather</h2>
-			<div class="container-fluid" id="weather-cards">
-				<div class="row">
-					<div class="col" id="mars-weather">
+			<div class="container" id="weather-cards">
+				<div class="row justify-content-around">
+					<div class="col-sm-5" id="mars-weather">
 						<img src="./assets/images/mars.png" alt="Mars" width="100%" />
 						<!-- <div class="card">
 							<img src="./assets/images/mars.png" alt="Mars" width="100%" class="mx-auto" />
 						</div> -->
 						<!-- Mars weather goes here -->
 					</div>
-					<div class="col" id="earth-weather">
+					<div class="col-sm-5" id="earth-weather">
 						<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
 						<!-- <div class="card">
 							<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />

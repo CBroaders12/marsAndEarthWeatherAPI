@@ -120,14 +120,26 @@ function displayMarsInfo(json) {
 	// let timeStamp = new Date(solData.Last_UTC); // Not used
 	let dateString = `Sol ${lastSol}`; // Show the Sol of the Insight mission instead of the Earth Date
 
-	// Get temperature readings
-	let avgTemp = Math.round(solData.AT.av);
-	let minTemp = Math.round(solData.AT.mn);
-	let maxTemp = Math.round(solData.AT.mx);
+	// Get temperature readings in Fahrenheit
+	let avgTemp = Math.round(1.8 * solData.AT.av + 32);
+	let minTemp = Math.round(1.8 * solData.AT.mn + 32);
+	let maxTemp = Math.round(1.8 * solData.AT.mx + 32);
 
 	// TODO: Pull wind info
+	if (solData.HWS) {
+		let windSpeed = solData.HWS.av;
+		console.log(windSpeed);
+	}
+	if (solData.WD) {
+		let windDirection = solData.WD.most_common.compass_point;
+		console.log(windDirection);
+	}
 
 	// TODO: Pull pressure info
+	if (solData.PRE) {
+		let avgPressure = Math.round(solData.PRE.av);
+		console.log(avgPressure);
+	}
 
 	let marsCard = buildCard("4.5\u00b0 135.6\u00b0", "Elysium Planitia", dateString, avgTemp, minTemp, maxTemp);
 
