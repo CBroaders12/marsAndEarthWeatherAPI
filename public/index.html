@@ -1,80 +1,240 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/7.22.1/firebase-app.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/7.22.1/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.22.1/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.22.1/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.22.1/firebase-storage.js"></script>
-    <script defer src="/__/firebase/7.22.1/firebase-analytics.js"></script>
-    <script defer src="/__/firebase/7.22.1/firebase-remote-config.js"></script>
-    <script defer src="/__/firebase/7.22.1/firebase-performance.js"></script>
-    <!-- initialize the SDK after all desired features are loaded -->
-    <script defer src="/__/firebase/init.js"></script>
+		<!--~ BOOTSTRAP CSS -->
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+			integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+			crossorigin="anonymous"
+		/>
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
-    </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
-    </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+		<!--~ MY CSS -->
+		<link rel="stylesheet" href="style.css" type="text/css" />
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+		<title>Weather on Earth/Mars</title>
+	</head>
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      });
-    </script>
-  </body>
+	<body>
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4 text-light">Mars vs. Earth Weather</h1>
+				<p class="lead text-light">
+					Take a look at the weather on Mars and see how it compares to weather here on Earth.
+				</p>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-5">
+			<h2>Choose a location on Earth</h2>
+			<form>
+				<div class="row">
+					<div class="col">
+						<label for="latitude">
+							<span class="font-weight-bold nasa">Latitude:</span> <span id="lat-output"></span>&deg;</label
+						>
+						<input type="range" min="-90" max="90" step="0.1" class="slider" id="latitude" value="4.5" />
+					</div>
+					<div class="col">
+						<label for="longitude">
+							<span class="font-weight-bold nasa">Longitude:</span> <span id="long-output"></span>&deg;</label
+						>
+						<input type="range" min="-180" max="180" step="0.1" class="slider" id="longitude" value="135.6" required />
+					</div>
+				</div>
+				<button class="btn btn-primary d-block mx-auto my-3" type="submit">Submit Location</button>
+			</form>
+
+			<!--! SUGGESTED LOCATIONS TABLE -->
+			<div class="container-sm">
+				<h3>Some places to try</h3>
+				<table class="table table-sm table-striped table-light">
+					<thead class="thead-dark nasa">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">City</th>
+							<th scope="col">Latitude</th>
+							<th scope="col">Longitude</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>Indianapolis, IN, USA</td>
+							<td>39.8&deg;</td>
+							<td>-86.2&deg;</td>
+						</tr>
+						<tr>
+							<th scope="row">2</th>
+							<td>New York City, NY, USA</td>
+							<td>40.7&deg;</td>
+							<td>-74.0&deg;</td>
+						</tr>
+						<tr>
+							<th scope="row">3</th>
+							<td>Wellington, New Zealand</td>
+							<td>-41.3&deg;</td>
+							<td>174.8&deg;</td>
+						</tr>
+						<tr>
+							<th scope="row">4</th>
+							<td>Dublin, Ireland</td>
+							<td>53.4&deg;</td>
+							<td>-6.3&deg;</td>
+						</tr>
+						<tr>
+							<th scope="row">5</th>
+							<td>Rio de Janeiro, Brazil</td>
+							<td>-22.9&deg;</td>
+							<td>-43.2&deg;</td>
+						</tr>
+						<tr>
+							<th scope="row">6</th>
+							<td>Sydney, Australia</td>
+							<td>-33.9&deg;</td>
+							<td>151.2&deg;</td>
+						</tr>
+						<tr>
+							<th scope="row">7</th>
+							<td>Nairobi, Kenya</td>
+							<td>-1.3&deg;</td>
+							<td>36.8&deg;</td>
+						</tr>
+						<tr>
+							<th scope="row">8</th>
+							<td>Tokyo, Japan</td>
+							<td>35.7&deg;</td>
+							<td>139.7&deg;</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<div class="container-fluid mb-5">
+			<h2>Yesterday's Weather</h2>
+			<div class="container-sm" id="weather-cards">
+				<div class="row justify-content-between">
+					<div class="col-sm-5" id="mars-weather">
+						<img src="./assets/images/mars.png" alt="Mars" width="100%" />
+						<!-- <div class="card">
+							<img src="./assets/images/mars.png" alt="Mars" width="100%" class="mx-auto" />
+						</div> -->
+						<!-- Mars weather goes here -->
+					</div>
+					<div class="col-sm-5" id="earth-weather">
+						<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
+						<!-- <div class="card">
+							<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
+						</div> -->
+						<!-- Earth weather goes here -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--~ CARD TEMPLATE  -->
+		<div class="container-fluid">
+			<h2>Template</h2>
+			<div class="container d-flex" id="test-container">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Date/Sol #</h5>
+						<h6 class="average-temp card-subtitle">{Avg. Temp} &deg;F</h6>
+						<p class="card-text"><span class="min-temp">Low:</span> {Min. Temp} &deg;F</p>
+						<p class="card-text"><span class="max-temp">High:</span> {Max. Temp} &deg;F</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid" id="about">
+			<h2>About this page</h2>
+			<p>
+				This page was built with <a href="https://getbootstrap.com" target="blank">Bootstrap</a> and interacts with two
+				different APIs: the
+				<a href="https://api.nasa.gov/assets/insight/InSight Weather API Documentation.pdf" target="blank"
+					>NASA InSight Weather API</a
+				>
+				and the <a href="https://openweathermap.org/api/one-call-api" target="blank">OpenWeather One Call API</a>.
+			</p>
+			<p>
+				The purpose of the project was to learn how to integrate information from multiple sources into a single page
+				and also allow for users to choose the information that they would like to see displayed. In the case of this
+				page, users are able to choose a latitude and longitude on Earth with which to compare the weather found at
+				Elysium Planitia, the location of the InSight Lander.
+			</p>
+
+			<h6 class="font-weight-bold">A few notes:</h6>
+			<ol>
+				<li>
+					<span class="font-italic font-weight-bold">Data availability:</span>
+					<p>
+						The data from the InSight lander includes temperature, air pressure, and wind speed, however, the pressure
+						and wind speed measurements are not always available. Because of this limitation the project only includes
+						temperature for the preceding sol/day.
+					</p>
+					<p>More information regarding the available data can be found at the API documentation.</p>
+				</li>
+				<li>
+					<span class="font-italic font-weight-bold">Apples and Oranges Comparisons:</span>
+					<p>
+						Another reason for lack of pressure and wind data in this particular page is that the atmospheric pressure
+						on Mars is less than 1% of Earth's. This means any comparison of wind speed would not be very enlightening
+						as a 60 mph wind on Mars would feel like an 8 mph wind here on Earth.
+					</p>
+					<p>
+						For an explanation of the physics behind this look
+						<a href="https://space.stackexchange.com/questions/9301/could-you-feel-the-wind-on-mars" target="blank"
+							>here</a
+						>.
+					</p>
+				</li>
+				<li>
+					<span class="font-italic font-weight-bold">Mars Calendar vs. Earth Calendar:</span>
+					<p>
+						For simplicity, the data pulled from Insight is the last sol's data point, which is then compared to
+						yesterday's weather at the chosen point on Earth. This may not be entirely accurate, because one Sol
+						(Martian Solar Day) is 39 minutes and 35 seconds longer than an Earth day. Additionally, the seasons on Mars
+						do not sync up with those one Earth so the comparisons are to satisfy
+						<a href="https://en.wikipedia.org/wiki/Curiosity_(rover)" target="blank">curiosity</a> rather than produce
+						new <a href="https://en.wikipedia.org/wiki/InSight" target="blank">insight</a>.
+					</p>
+					<p>
+						For more info on Mars' calendar look
+						<a href="https://www.planetary.org/articles/mars-calendar" target="blank">here</a>.
+					</p>
+				</li>
+			</ol>
+		</div>
+
+		<div class="container-fluid bg-dark text-muted p-2 footer text-center">
+			<p>Copyright &copy; Conor Broaders 2020</p>
+			Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik" target="blank">Freepik</a> from
+			<a href="https://www.flaticon.com/" title="Flaticon" target="blank"> www.flaticon.com</a>
+		</div>
+
+		<!--~ BOOTSTRAP JS -->
+		<script
+			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+			integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+			integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+			crossorigin="anonymous"
+		></script>
+
+		<!--~ MY JS -->
+		<script src="script.js" type="text/javascript"></script>
+	</body>
 </html>
