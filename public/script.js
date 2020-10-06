@@ -110,7 +110,7 @@ function displayEarthInfo(json) {
 	avgPressure = Math.round(avgPressure * 100) / 100; // Round to 2 decimal places
 	console.log(`Earth Pressure: ${avgPressure} Pa`);
 
-	let earthCard = buildCard(location, timeZone, dateString, avgTemp, minTemp, maxTemp);
+	let earthCard = buildCard(location, timeZone, dateString, avgTemp, minTemp, maxTemp, avgPressure, avgWindSpeed);
 
 	earthDiv.appendChild(earthCard);
 }
@@ -136,61 +136,125 @@ function displayMarsInfo(json) {
 	let minTemp = Math.round(1.8 * solData.AT.mn + 32);
 	let maxTemp = Math.round(1.8 * solData.AT.mx + 32);
 
+	// declare atmospheric variables
+	let windSpeed;
+	let avgPressure;
+
 	// Pull wind info (speed in m/s)
 	if (solData.HWS) {
-		let windSpeed = solData.HWS.av * 2.237; // Convert to mph for comparison
+		windSpeed = solData.HWS.av * 2.237; // Convert to mph for comparison
 		windSpeed = Math.round(windSpeed * 100) / 100; // Round to 1 Decimal Place
 		console.log(`Mars Wind Speed: ${windSpeed} mph`);
 	}
 
 	// Pull pressure info (measured in Pa)
 	if (solData.PRE) {
-		let avgPressure = Math.round(solData.PRE.av * 100) / 100;
+		avgPressure = Math.round(solData.PRE.av * 100) / 100;
 		console.log(`Mars Pressure: ${avgPressure} Pa`);
 	}
 
-	let marsCard = buildCard("4.5\u00b0 135.6\u00b0", "Elysium Planitia", dateString, avgTemp, minTemp, maxTemp);
+	let marsCard = buildCard(
+		"4.5\u00b0 135.6\u00b0",
+		"Elysium Planitia",
+		dateString,
+		avgTemp,
+		minTemp,
+		maxTemp,
+		avgPressure,
+		windSpeed
+	);
 
 	marsDiv.appendChild(marsCard);
 }
 
-function buildCard(location, locationExtra, date, avgTemp, minTemp, maxTemp) {
+function buildCard(location, locationExtra, date, avgTemp, minTemp, maxTemp, pressure = "N/A", windSpeed = "N/A") {
+	// !Initialize main card parts
 	let card = document.createElement("div");
 	let cardHeader = document.createElement("div");
 	let cardBody = document.createElement("div");
 	let locationText = document.createElement("h4");
 	let locationDetail = document.createElement("h5");
-	let measurementDate = document.createElement("h6");
+	let measurementDate = document.createElement("h5");
+	let cardGroup = document.createElement("div");
+
+	// Initialize Temperature sub-card parts
+	let tempCard = document.createElement("div");
+	let tempCardHeader = document.createElement("div");
+	let tempCardBody = document.createElement("div");
 	let avgTempText = document.createElement("p");
 	let minTempText = document.createElement("p");
 	let maxTempText = document.createElement("p");
 
-	//add Bootstrap Classes
+	// Initialize Atmosphere sub-card parts
+	let atmoCard = document.createElement("div");
+	let atmoCardHeader = document.createElement("div");
+	let atmoCardBody = document.createElement("div");
+	let pressureText = document.createElement("p");
+	let windText = document.createElement("p");
+
+	//! add Bootstrap Classes
 	card.classList.add("card");
 	cardHeader.classList.add("card-header");
 	cardBody.classList.add("card-body");
 	locationText.classList.add("card-title", "text-center", "my-2");
 	locationDetail.classList.add("card-subtitle", "text-center");
-	measurementDate.classList.add("card-subtitle", "text-center");
+	measurementDate.classList.add("card-title", "text-center");
+	cardGroup.classList.add("card-group");
+
+	// Temperature Card
+	tempCard.classList.add("card");
+	tempCardHeader.classList.add("card-header");
+	tempCardBody.classList.add("card-body");
 	avgTempText.classList.add("card-text");
 	minTempText.classList.add("card-text");
 	maxTempText.classList.add("card-text");
 
-	// add content to each section
+	// Atmospher card
+	atmoCard.classList.add("card");
+	atmoCardHeader.classList.add("card-header");
+	atmoCardBody.classList.add("card-body");
+	pressureText.classList.add("card-text");
+	windText.classList.add("card-text");
+
+	//! add content to each section
 	locationText.innerText = location;
 	locationDetail.innerText = locationExtra;
 	measurementDate.innerHTML = date;
-	avgTempText.innerHTML = `${avgTemp} \u00b0F`;
-	minTempText.innerHTML = `Low: <span> ${minTemp} \u00b0F </span>`;
-	maxTempText.innerHTML = `High: <span> ${maxTemp} \u00b0F </span>`;
 
-	// Put the card together
+	// Temperature Card
+	tempCardHeader.innerHTML = `<h6 class="text-center">Temperature</h6>`;
+	avgTempText.innerHTML = `<strong>Avg:</strong> ${avgTemp} \u00b0F`;
+	minTempText.innerHTML = `<strong>Low:</strong> ${minTemp} \u00b0F`;
+	maxTempText.innerHTML = `<strong>High:</strong> ${maxTemp} \u00b0F`;
+
+	// Atmosphere Card
+	atmoCardHeader.innerHTML = `<h6 class="text-center">Atmosphere</h6>`;
+	pressureText.innerHTML = `<strong>Press.:</strong> ${pressure} Pa`;
+	windText.innerHTML = `<strong>Wind:</strong> ${windSpeed} mph`;
+
+	//! Put the card together
 	cardHeader.appendChild(locationText);
 	cardHeader.appendChild(locationDetail);
 	cardBody.appendChild(measurementDate);
-	cardBody.appendChild(avgTempText);
-	cardBody.appendChild(minTempText);
-	cardBody.appendChild(maxTempText);
+	cardBody.appendChild(cardGroup);
+
+	// Temperature Card
+	tempCardBody.appendChild(avgTempText);
+	tempCardBody.appendChild(minTempText);
+	tempCardBody.appendChild(maxTempText);
+	tempCard.appendChild(tempCardHeader);
+	tempCard.appendChild(tempCardBody);
+
+	// Atmosphere Card
+	atmoCardBody.appendChild(pressureText);
+	atmoCardBody.appendChild(windText);
+	atmoCard.appendChild(atmoCardHeader);
+	atmoCard.appendChild(atmoCardBody);
+
+	// Join inner cards
+	cardGroup.appendChild(tempCard);
+	cardGroup.appendChild(atmoCard);
+
 	card.appendChild(cardHeader);
 	card.appendChild(cardBody);
 
