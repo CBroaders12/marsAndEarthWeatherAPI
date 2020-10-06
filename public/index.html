@@ -28,11 +28,15 @@
 				<p class="lead text-light">
 					Take a look at the weather on Mars and see how it compares to weather here on Earth.
 				</p>
+				<p class="display-6 text-light">
+					Choose a location on Earth and see how its weather compares to the weather on Mars at the InSight lander in
+					Elysium Planitia.
+				</p>
 			</div>
 		</div>
 
 		<div class="container-fluid mb-5">
-			<h2>Choose a location on Earth</h2>
+			<h2>Choose Earth Coordinates</h2>
 			<form>
 				<div class="row">
 					<div class="col">
@@ -48,12 +52,27 @@
 						<input type="range" min="-180" max="180" step="0.1" class="slider" id="longitude" value="135.6" required />
 					</div>
 				</div>
-				<button class="btn btn-primary d-block mx-auto my-3" type="submit">Submit Location</button>
+				<button class="btn btn-primary d-block mx-auto my-3 nasa" type="submit">Submit Location</button>
 			</form>
+		</div>
 
-			<div class="dropdown">
+		<div class="container-fluid mb-5">
+			<h2>Yesterday's Weather</h2>
+			<div class="container" id="weather-cards">
+				<div class="row justify-content-around">
+					<div class="col-sm-5" id="mars-weather">
+						<img src="./assets/images/mars.png" alt="Mars" width="100%" />
+						<!-- Mars weather goes here -->
+					</div>
+					<div class="col-sm-5" id="earth-weather">
+						<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
+						<!-- Earth weather goes here -->
+					</div>
+				</div>
+			</div>
+			<div class="dropdown mt-5">
 				<button
-					class="btn btn-secondary dropdown-toggle nasa"
+					class="btn btn-secondary dropdown-toggle d-block mx-auto nasa"
 					type="button"
 					id="dropdownMenuButton"
 					data-toggle="dropdown"
@@ -75,19 +94,19 @@
 						<tbody>
 							<tr>
 								<th scope="row">1</th>
-								<td>Indianapolis</td>
+								<td>Indianapolis, IN, USA</td>
 								<td>39.8&deg;</td>
 								<td>-86.2&deg;</td>
 							</tr>
 							<tr>
 								<th scope="row">2</th>
-								<td>Chicago</td>
+								<td>Chicago, IL, USA</td>
 								<td>41.9&deg;</td>
 								<td>-87.6&deg;</td>
 							</tr>
 							<tr>
 								<th scope="row">3</th>
-								<td>New York City</td>
+								<td>New York City, NY, USA</td>
 								<td>40.7&deg;</td>
 								<td>-74.0&deg;</td>
 							</tr>
@@ -125,103 +144,44 @@
 					</table>
 				</div>
 			</div>
-			<!-- <div class="container-sm">
-				<h3>Some places to try</h3>
-				<table class="table table-sm table-striped table-light">
-					<thead class="thead-dark nasa">
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">City</th>
-							<th scope="col">Latitude</th>
-							<th scope="col">Longitude</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Indianapolis</td>
-							<td>39.8&deg;</td>
-							<td>-86.2&deg;</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Chicago</td>
-							<td>41.9&deg;</td>
-							<td>-87.6&deg;</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>New York City</td>
-							<td>40.7&deg;</td>
-							<td>-74.0&deg;</td>
-						</tr>
-						<tr>
-							<th scope="row">4</th>
-							<td>Dublin, Ireland</td>
-							<td>53.4&deg;</td>
-							<td>-6.3&deg;</td>
-						</tr>
-						<tr>
-							<th scope="row">5</th>
-							<td>Rio de Janeiro, Brazil</td>
-							<td>-22.9&deg;</td>
-							<td>-43.2&deg;</td>
-						</tr>
-						<tr>
-							<th scope="row">6</th>
-							<td>Sydney, Australia</td>
-							<td>-33.9&deg;</td>
-							<td>151.2&deg;</td>
-						</tr>
-						<tr>
-							<th scope="row">7</th>
-							<td>Nairobi, Kenya</td>
-							<td>-1.3&deg;</td>
-							<td>36.8&deg;</td>
-						</tr>
-						<tr>
-							<th scope="row">8</th>
-							<td>Tokyo, Japan</td>
-							<td>35.7&deg;</td>
-							<td>139.7&deg;</td>
-						</tr>
-					</tbody>
-				</table> 
-			</div>-->
-		</div>
-
-		<div class="container-fluid mb-5">
-			<h2>Yesterday's Weather</h2>
-			<div class="container" id="weather-cards">
-				<div class="row justify-content-around">
-					<div class="col-sm-5" id="mars-weather">
-						<img src="./assets/images/mars.png" alt="Mars" width="100%" />
-						<!-- <div class="card">
-							<img src="./assets/images/mars.png" alt="Mars" width="100%" class="mx-auto" />
-						</div> -->
-						<!-- Mars weather goes here -->
-					</div>
-					<div class="col-sm-5" id="earth-weather">
-						<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
-						<!-- <div class="card">
-							<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
-						</div> -->
-						<!-- Earth weather goes here -->
-					</div>
-				</div>
-			</div>
 		</div>
 
 		<!--~ CARD TEMPLATE  -->
 		<!-- <div class="container-fluid">
-			<h2>Template</h2>
-			<div class="container d-flex" id="test-container">
+			<h2 class="text-center">Template</h2>
+			<div class="container d-flex justify-content-center" id="test-container">
 				<div class="card">
+					<div class="card-header text-center">
+						<h4>Coordinates</h4>
+						<h5>Location/Time Zone</h5>
+					</div>
+
 					<div class="card-body">
-						<h5 class="card-title">Date/Sol #</h5>
-						<h6 class="average-temp card-subtitle">{Avg. Temp} &deg;F</h6>
-						<p class="card-text"><span class="min-temp">Low:</span> {Min. Temp} &deg;F</p>
-						<p class="card-text"><span class="max-temp">High:</span> {Max. Temp} &deg;F</p>
+						<h5 class="card-title text-center">Date/Sol #</h5>
+						<div class="card-group">
+							<!--! Temperature --
+							<div class="card">
+								<div class="card-header">
+									<h6 class="text-center">Temperature</h6>
+								</div>
+								<div class="card-body">
+									<p class="card-text"><strong>Avg:</strong> {Avg. Temp} &deg;F</p>
+									<p class="card-text"><strong>Low:</strong> {Min. Temp} &deg;F</p>
+									<p class="card-text"><strong>High:</strong> {Max. Temp} &deg;F</p>
+								</div>
+							</div>
+
+							<!--! Atmosphere --
+							<div class="card">
+								<div class="card-header">
+									<h6 class="text-center">Atmosphere</h6>
+								</div>
+								<div class="card-body">
+									<p class="card-text"><strong>Pressure:</strong> {Avg. Pressure} Pa</p>
+									<p class="card-text"><strong>Wind:</strong> {Wind Speed} mph</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -247,7 +207,7 @@
 			<h6 class="font-weight-bold">A few notes:</h6>
 			<ol>
 				<li>
-					<span class="font-italic">Data availability:</span>
+					<span class="font-italic font-weight-bold">Data availability:</span>
 					<p>
 						The data from the InSight lander includes temperature, air pressure, and wind speed, however, the pressure
 						and wind speed measurements are not always available. Because of this limitation the project only includes
@@ -256,11 +216,11 @@
 					<p>More information regarding the available data can be found at the API documentation.</p>
 				</li>
 				<li>
-					<span class="font-italic">Apples and Oranges Comparisons:</span>
+					<span class="font-italic font-weight-bold">Apples and Oranges Comparisons:</span>
 					<p>
-						Another reason for lack of pressure and wind data in this particular page is that the atmospheric pressure
-						on Mars is less than 1% of Earth's. This means any comparison of wind speed would not be very enlightening
-						as a 60 mph wind on Mars would feel like an 8 mph wind here on Earth.
+						Comparing pressure and wind data is not quite as straight-forward as this page makes it seem because the
+						atmospheric pressure on Mars is less than 1% of Earth's. This means any comparison of wind speed would not
+						be very enlightening as a 60 mph wind on Mars would feel like an 8 mph wind here on Earth.
 					</p>
 					<p>
 						For an explanation of the physics behind this look
@@ -270,12 +230,12 @@
 					</p>
 				</li>
 				<li>
-					<span class="font-italic">Mars Calendar vs. Earth Calendar:</span>
+					<span class="font-italic font-weight-bold">Mars Calendar vs. Earth Calendar:</span>
 					<p>
 						For simplicity, the data pulled from Insight is the last sol's data point, which is then compared to
 						yesterday's weather at the chosen point on Earth. This may not be entirely accurate, because one Sol
 						(Martian Solar Day) is 39 minutes and 35 seconds longer than an Earth day. Additionally, the seasons on Mars
-						do not sync up with those one Earth so the comparisons are to satisfy
+						do not sync up with those on Earth so the comparisons are to satisfy
 						<a href="https://en.wikipedia.org/wiki/Curiosity_(rover)" target="blank">curiosity</a> rather than produce
 						new <a href="https://en.wikipedia.org/wiki/InSight" target="blank">insight</a>.
 					</p>
