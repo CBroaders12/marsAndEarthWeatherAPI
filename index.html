@@ -39,7 +39,7 @@
 						<input type="range" min="-90" max="90" step="0.1" class="slider" id="latitude" value="4.5" />
 					</div>
 					<div class="col">
-						<label for="longitude">
+						<labelF for="longitude">
 							<span class="font-weight-bold nasa">Longitude:</span> <span id="long-output"></span>&deg;</label
 						>
 						<input type="range" min="-180" max="180" step="0.1" class="slider" id="longitude" value="135.6" required />
@@ -47,8 +47,6 @@
 				</div>
 				<button class="btn btn-primary d-block mx-auto my-3" type="submit">Submit Location</button>
 			</form>
-
-			<!--! SUGGESTED LOCATIONS TABLE -->
 			<div class="container-sm">
 				<h3>Some places to try</h3>
 				<table class="table table-sm table-striped table-light">
@@ -63,21 +61,21 @@
 					<tbody>
 						<tr>
 							<th scope="row">1</th>
-							<td>Indianapolis, IN, USA</td>
+							<td>Indianapolis</td>
 							<td>39.8&deg;</td>
 							<td>-86.2&deg;</td>
 						</tr>
 						<tr>
 							<th scope="row">2</th>
-							<td>New York City, NY, USA</td>
-							<td>40.7&deg;</td>
-							<td>-74.0&deg;</td>
+							<td>Chicago</td>
+							<td>41.9&deg;</td>
+							<td>-87.6&deg;</td>
 						</tr>
 						<tr>
 							<th scope="row">3</th>
-							<td>Wellington, New Zealand</td>
-							<td>-41.3&deg;</td>
-							<td>174.8&deg;</td>
+							<td>New York City</td>
+							<td>40.7&deg;</td>
+							<td>-74.0&deg;</td>
 						</tr>
 						<tr>
 							<th scope="row">4</th>
@@ -116,16 +114,16 @@
 
 		<div class="container-fluid mb-5">
 			<h2>Yesterday's Weather</h2>
-			<div class="container-sm" id="weather-cards">
-				<div class="row justify-content-between">
-					<div class="col-sm-5" id="mars-weather">
+			<div class="container-fluid" id="weather-cards">
+				<div class="row">
+					<div class="col" id="mars-weather">
 						<img src="./assets/images/mars.png" alt="Mars" width="100%" />
 						<!-- <div class="card">
 							<img src="./assets/images/mars.png" alt="Mars" width="100%" class="mx-auto" />
 						</div> -->
 						<!-- Mars weather goes here -->
 					</div>
-					<div class="col-sm-5" id="earth-weather">
+					<div class="col" id="earth-weather">
 						<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
 						<!-- <div class="card">
 							<img src="./assets/images/planet-earth.png" alt="Earth" width="100%" class="mx-auto" />
@@ -137,7 +135,7 @@
 		</div>
 
 		<!--~ CARD TEMPLATE  -->
-		<div class="container-fluid">
+		<!-- <div class="container-fluid">
 			<h2>Template</h2>
 			<div class="container d-flex" id="test-container">
 				<div class="card">
@@ -149,7 +147,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="container-fluid" id="about">
 			<h2>About this page</h2>
@@ -171,7 +169,7 @@
 			<h6 class="font-weight-bold">A few notes:</h6>
 			<ol>
 				<li>
-					<span class="font-italic font-weight-bold">Data availability:</span>
+					<span class="font-italic">Data availability:</span>
 					<p>
 						The data from the InSight lander includes temperature, air pressure, and wind speed, however, the pressure
 						and wind speed measurements are not always available. Because of this limitation the project only includes
@@ -180,7 +178,7 @@
 					<p>More information regarding the available data can be found at the API documentation.</p>
 				</li>
 				<li>
-					<span class="font-italic font-weight-bold">Apples and Oranges Comparisons:</span>
+					<span class="font-italic">Apples and Oranges Comparisons:</span>
 					<p>
 						Another reason for lack of pressure and wind data in this particular page is that the atmospheric pressure
 						on Mars is less than 1% of Earth's. This means any comparison of wind speed would not be very enlightening
@@ -194,7 +192,7 @@
 					</p>
 				</li>
 				<li>
-					<span class="font-italic font-weight-bold">Mars Calendar vs. Earth Calendar:</span>
+					<span class="font-italic">Mars Calendar vs. Earth Calendar:</span>
 					<p>
 						For simplicity, the data pulled from Insight is the last sol's data point, which is then compared to
 						yesterday's weather at the chosen point on Earth. This may not be entirely accurate, because one Sol
