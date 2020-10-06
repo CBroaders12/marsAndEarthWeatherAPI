@@ -229,8 +229,8 @@ function buildCard(location, locationExtra, date, avgTemp, minTemp, maxTemp, pre
 
 	// Atmosphere Card
 	atmoCardHeader.innerHTML = `<h6 class="text-center">Atmosphere</h6>`;
-	pressureText.innerHTML = `<strong>Press.:</strong> ${pressure} Pa`;
-	windText.innerHTML = `<strong>Wind:</strong> ${windSpeed} mph`;
+	pressureText.innerHTML = `<strong>Press:</strong>\n${pressure} Pa`;
+	windText.innerHTML = `<strong>Wind:</strong>\n${windSpeed} mph`;
 
 	//! Put the card together
 	cardHeader.appendChild(locationText);

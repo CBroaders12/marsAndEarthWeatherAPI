@@ -13,7 +13,7 @@ h6,
 	background: url(./assets/images/nasa-E7q00J_8N7A-unsplash.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 40vh;
+	height: 30vh;
 }
 
 /* Slider Stylings */
@@ -60,6 +60,10 @@ h6,
 
 img {
 	width: 100%;
+}
+
+.card-body {
+	padding: 20px 10px 10px 10px;
 }
 
 /* CUSTOM FONTS */
